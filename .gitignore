@@ -1,0 +1,27 @@
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+.settings/
+proguard/
+!proguard/mapping.txt
+libs/*.properties
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Eclipse project files
+.classpath
+.project
+
+#ignore source code config
+libs/android-support-v4.jar.properties
