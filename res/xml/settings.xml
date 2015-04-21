@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <SwitchPreference
+        android:key="nofity"
+        android:icon="@drawable/ic_launcher"
+        android:summary="设置通知"
+        android:summaryOn="通知用户活动进程"
+        android:summaryOff="活动进程讲不会被通知"
+        android:switchTextOff="off"
+        android:switchTextOn="on" />
+    <SwitchPreference
+        android:key="screen"
+        android:icon="@drawable/launcher"
+        android:summary="设置屏幕"
+        android:summaryOff="亮度跟随系统"
+        android:summaryOn="保持屏幕常亮 "
+        android:switchTextOff="off"
+        android:switchTextOn="on " />
+
+    <EditTextPreference
+        android:key="edit"
+        android:summary="输入文字"
+        android:icon="@drawable/custom_bitmap"
+        android:dialogIcon="@drawable/launcher"
+        android:dialogMessage="提示"
+        android:dialogTitle="请嵌入要存储的内容"
+        android:negativeButtonText="cancel"
+        android:positiveButtonText="ok" />
+
+</PreferenceScreen>

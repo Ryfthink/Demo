@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- pubic attrs that can be used for other declared-styleable -->
+    <attr name="attr_enum">
+        <enum name="none" value="0" />
+        <enum name="thumbnail" value="1" />
+        <enum name="drop" value="2" />
+    </attr>
+    <attr name="attr_x" format="reference" />
+    <attr name="attr_y" format="reference" />
+
+    <!-- style1&style2 or more styleable  can use the declared attrs  above -->
+
+    <declare-styleable name="style1">
+        <attr name="attr_x"></attr>
+        <attr name="attr_y"></attr>
+    </declare-styleable>
+
+    <!-- like style1 -->
+    <declare-styleable name="style2">
+        <attr name="attr_enum" />
+    </declare-styleable>
+
+    <!-- style3 has its own attrs -->
+    <declare-styleable name="style3">
+        <attr name="attr_str" format="string|reference"></attr>
+        <attr name="attr_x" />
+        <attr name="attr_y" />
+    </declare-styleable>
+
+    <!-- style4 has its own attrs -->
+    <declare-styleable name="style4">
+        <attr name="attr_str" />
+        <attr name="attr_x" />
+        <attr name="attr_y" />
+        <attr name="attr_enum" />
+        <attr name="attr_enum2">
+            <enum name="aaa" value="1"></enum>
+            <enum name="bbb" value="2"></enum>
+            <enum name="ccc" value="3"></enum>
+            <enum name="ddd" value="4"></enum>
+        </attr>
+    </declare-styleable>
+
+    <!-- custom layout parameters -->
+    <declare-styleable name="CustomLayoutLP">
+        <attr name="android:layout_gravity" />
+        <attr name="layout_position">
+            <enum name="middle" value="0" />
+            <enum name="left" value="1" />
+            <enum name="right" value="2" />
+        </attr>
+    </declare-styleable>
+
+</resources>

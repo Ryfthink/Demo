@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Demo</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="gifwallpaper">Gif Wallpaper</string>
+    <string name="animwallpaper">Animate Wallpaper</string>
+
+    <!-- General strings -->
+    <string name="author">harism</string>
+    <string name="description">Yin Yang, live OpenGL 2.0 ES wallpaper.</string>
+
+    <!-- Error strings -->
+    <string name="error_shader_compiler">Yin Yang error; GLSL shader compiler not supported.</string>
+    <string name="current_mplitude">修改中等振幅，当前%1$s</string>
+    <string name="current_Disparity">修改振幅差距，当前%1$s</string>
+    <string name="current_float_time">修改移动速度，当前%1$s</string>
+    <string name="current_rotate_time">修改旋转速度，当前%1$s</string>
+
+</resources>

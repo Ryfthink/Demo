@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ryf.demo.customattr.CustomLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/ryf.demo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <!-- put first view to left. -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_vertical|center_horizontal"
+        app:layout_position="left"
+        android:background="@android:color/darker_gray"
+        android:text="l1" />
+
+    <!-- stack second view to left. -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_vertical|center_horizontal"
+        app:layout_position="left"
+        android:background="@android:color/darker_gray"
+        android:text="l2" />
+
+    <!-- also put a view on the right. -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_vertical|center_horizontal"
+        app:layout_position="right"
+        android:background="@android:color/darker_gray"
+        android:text="r1" />
+
+    <!-- by default views go in the middle; use fill vertical gravity -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="fill_vertical|center_horizontal"
+        android:background="@android:color/holo_green_dark"
+        android:text="fill-vert" />
+
+    <!-- by default views go in the middle; use fill horizontal gravity -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|fill_horizontal"
+        android:background="@android:color/holo_green_dark"
+        android:text="fill-horiz" />
+
+    <!-- by default views go in the middle; use top-left gravity -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|left"
+        android:background="@android:color/holo_blue_dark"
+        android:text="top-left" />
+
+    <!-- by default views go in the middle; use center gravity -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@android:color/holo_blue_dark"
+        android:text="center" />
+
+    <!-- by default views go in the middle; use bottom-right -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:background="@android:color/holo_blue_dark"
+        android:text="bottom-right" />
+
+</ryf.demo.customattr.CustomLayout>
