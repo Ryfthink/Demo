@@ -7,6 +7,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 public class EditmodeUtil {
 
@@ -16,7 +17,7 @@ public class EditmodeUtil {
 		mGridView.setColumnWidth(404);
 		mGridView.setRowHeight(236);
 		mGridView.setNumColumns(4);
-		mGridView.setOffset(300, 0);
+		mGridView.setOffset(0, 0);
 		mGridView.setFocusOffest(0);
 		mGridView.setIncludeAnimScale(false);
 		mGridView.setGravity(Gravity.CENTER);
@@ -26,9 +27,18 @@ public class EditmodeUtil {
 
 			@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
-				View view = new View(mGridView.getContext());
+				TextView view;
+				if(convertView != null){
+					view = (TextView) convertView;
+				} else{
+					view = new TextView(mGridView.getContext());
+				}
 				view.setBackgroundColor(0xff << 24 | new Random().nextInt(0xffffff));
 				view.setBackgroundResource(R.drawable.item);
+				view.setTextSize(50);
+				view.setGravity(Gravity.CENTER);
+				view.setTextColor(0xFFFF00FF);
+				view.setText("position: " + position);
 				return view;
 			}
 

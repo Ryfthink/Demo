@@ -2,9 +2,11 @@ package ryf.demo.headergridview;
 
 import java.util.Stack;
 
+import ryf.demo.R;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.DataSetObserver;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
@@ -14,16 +16,19 @@ import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.Gravity;
 import android.view.InputDevice;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewParent;
+import android.view.ViewGroup.LayoutParams;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 import android.widget.OverScroller;
 
@@ -60,13 +65,13 @@ public class SFGridView extends AdapterView<ListAdapter> implements IFocusable {
 	private long mLastScroll;
 
 	private int mFocusOffset = 20;// 焦点偏移
-	private int mFocusOffsetTop = 0; //焦点在mFocusOffset的基础上的偏移
-	private int mFocusOffsetBottom = 0; //焦点在mFocusOffset的基础上的偏移
-	private int mFocusOffsetRight = 0; //焦点在mFocusOffset的基础上的偏移
-	private int mFocusOffsetLeft = 0; //焦点在mFocusOffset的基础上的偏移
+	private int mFocusOffsetTop = 0; // 焦点在mFocusOffset的基础上的偏移
+	private int mFocusOffsetBottom = 0; // 焦点在mFocusOffset的基础上的偏移
+	private int mFocusOffsetRight = 0; // 焦点在mFocusOffset的基础上的偏移
+	private int mFocusOffsetLeft = 0; // 焦点在mFocusOffset的基础上的偏移
 
 	public boolean mIncludeAnimScale = true;// 是否使用动画后的缩放参数
-	
+
 	private OverScroller mScroller;
 	private GestureDetector mGestureDetector;
 
@@ -79,7 +84,7 @@ public class SFGridView extends AdapterView<ListAdapter> implements IFocusable {
 	private OnItemMenuClickListener mOnItemMenuClickListener;
 
 	private OnOutOfEdgeListener mOnOutOfEdgeListener;
-	
+
 	private boolean isNeedFocusAnimation = true;
 
 	public SFGridView(Context context) {
@@ -98,7 +103,8 @@ public class SFGridView extends AdapterView<ListAdapter> implements IFocusable {
 		mGestureDetector = new GestureDetector(getContext(), mGestureListener);
 		setOnKeyListener(mOnKeyListener);
 		super.setOverScrollMode(View.OVER_SCROLL_NEVER);
-		if(isInEditMode()){
+		initHeaderContainer(getContext());
+		if (isInEditMode()) {
 			EditmodeUtil.testSFGridView(this);
 		}
 	}
@@ -278,6 +284,9 @@ public class SFGridView extends AdapterView<ListAdapter> implements IFocusable {
 			mDataChanged = false;
 
 			removeAllViewsInLayout();
+			// removeViewsInLayout(1, getChildCount() - 1);
+
+			layoutHeader();
 
 			int leftOffset = 0;
 
@@ -562,11 +571,22 @@ public class SFGridView extends AdapterView<ListAdapter> implements IFocusable {
 
 	protected void reset() {
 		removeAllViewsInLayout();
+		// removeViewsInLayout(1, getChildCount() -1 );
 		mFirstPosition = 0;
 		mDataChanged = false;
 		mSelectedPosition = 0;
 		super.scrollTo(0, 0);
 		invalidate();
+	}
+	
+	@Override
+	public View getChildAt(int index) {
+		return super.getChildAt(index);
+	}
+	
+	@Override
+	public int getChildCount() {
+		return super.getChildCount();
 	}
 
 	protected void checkFocus() {
@@ -584,24 +604,6 @@ public class SFGridView extends AdapterView<ListAdapter> implements IFocusable {
 			mItemCount = getAdapter().getCount();
 			checkFocus();
 			requestLayout();
-
-			// if (isFocused()) {
-			// if (mSelectedPosition >= mItemCount) {
-			// mSelectedPosition = mItemCount - 1;
-			// } else if (mSelectedPosition < 0) {
-			// mSelectedPosition = 0;
-			// }
-			// getViewTreeObserver().addOnGlobalLayoutListener(new
-			// OnGlobalLayoutListener() {
-			// @Override
-			// public void onGlobalLayout() {
-			// getViewTreeObserver().removeGlobalOnLayoutListener(this);
-			// if (getChildCount() > 0) {
-			// setSelection(mSelectedPosition);
-			// }
-			// }
-			// });
-			// }
 		}
 
 		@Override
@@ -801,7 +803,7 @@ public class SFGridView extends AdapterView<ListAdapter> implements IFocusable {
 			child.setSelected(focused);
 
 			// scale
-			if(isNeedFocusAnimation){
+			if (isNeedFocusAnimation) {
 				if (focused) {
 					child.startAnimation(AnimUtil.newScaleAnimation(1.1f));
 				} else {
@@ -814,20 +816,20 @@ public class SFGridView extends AdapterView<ListAdapter> implements IFocusable {
 	public void setFocusOffest(int offset) {
 		mFocusOffset = offset;
 	}
-	
-	public void setFocusOffsetOther(int offsetTop , int offsetBottom , int offsetRight , int offsetLeft){
-		mFocusOffsetTop = offsetTop; //焦点在mFocusOffset的基础上的偏移
-		mFocusOffsetBottom = offsetBottom; //焦点在mFocusOffset的基础上的偏移
-		mFocusOffsetRight = offsetRight; //焦点在mFocusOffset的基础上的偏移
-		mFocusOffsetLeft = offsetLeft; //焦点在mFocusOffset的基础上的偏移
+
+	public void setFocusOffsetOther(int offsetTop, int offsetBottom, int offsetRight, int offsetLeft) {
+		mFocusOffsetTop = offsetTop; // 焦点在mFocusOffset的基础上的偏移
+		mFocusOffsetBottom = offsetBottom; // 焦点在mFocusOffset的基础上的偏移
+		mFocusOffsetRight = offsetRight; // 焦点在mFocusOffset的基础上的偏移
+		mFocusOffsetLeft = offsetLeft; // 焦点在mFocusOffset的基础上的偏移
 
 	}
 
 	public void setIncludeAnimScale(boolean include) {
 		mIncludeAnimScale = include;
 	}
-	
-	public void setNeedFocusAnimation(boolean isNeedFocusAnimation){
+
+	public void setNeedFocusAnimation(boolean isNeedFocusAnimation) {
 		this.isNeedFocusAnimation = isNeedFocusAnimation;
 	}
 
@@ -951,6 +953,51 @@ public class SFGridView extends AdapterView<ListAdapter> implements IFocusable {
 		public final int DIRECTION_UP = 1;
 
 		void onOutOfEdge(int direction);
+	}
+
+	private static class HeaderContainer extends FrameLayout {
+
+		public HeaderContainer(Context context) {
+			super(context);
+		}
+
+		@Override
+		protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+			// TODO Auto-generated method stub
+			super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+		}
+	}
+
+	public void setHeaderParams(int width, int height) {
+		LayoutParams params = new LayoutParams(width, height);
+		mHeaderContainer.setLayoutParams(params);
+	}
+
+	private HeaderContainer mHeaderContainer;
+
+	private View mHeaderView;
+	
+	private void initHeaderContainer(Context context) {
+		mHeaderContainer = new HeaderContainer(context);
+		mHeaderContainer.setLayoutParams(new LayoutParams(-1, 480));
+		mHeaderContainer.setBackgroundColor(Color.CYAN);
+		// setHeaderContent();
+	}
+
+	public void setHeaderContent() {
+		mHeaderView = LayoutInflater.from(getContext()).inflate(R.layout.activity_headergridview_header, null);
+	}
+
+	private void layoutHeader() {
+		View container = mHeaderContainer;
+		if (container != null) {
+			addViewInLayout(container, 0, null, true);
+//			headerContainer.measure(MeasureSpec.makeMeasureSpec(MeasureSpec.EXACTLY, mColumnWidth), MeasureSpec.makeMeasureSpec(MeasureSpec.EXACTLY, mRowHeight));
+//			headerContainer.getLayoutParams();
+//			headerContainer.measure(widthMeasureSpec, heightMeasureSpec);
+			container.measure(MeasureSpec.makeMeasureSpec(getWidth(), MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(480, MeasureSpec.EXACTLY));
+			container.layout(0, 0, container.getMeasuredWidth(), container.getMeasuredHeight());
+		}
 	}
 
 }

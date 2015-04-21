@@ -66,7 +66,7 @@
         android:id="@+id/sfGridView"
         android:layout_width="1800px"
         android:layout_height="match_parent"
-        android:layout_gravity="right"
+        android:layout_gravity="center_horizontal"
         android:gravity="center"
         android:orientation="vertical" >
     </ryf.demo.headergridview.SFGridView>

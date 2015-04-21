@@ -25,6 +25,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
+            android:screenOrientation="landscape"
             android:name="ryf.demo.headergridview.SFGridViewActivity"
             android:label="@string/app_name" >
             <intent-filter>
